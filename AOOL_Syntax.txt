@@ -1,0 +1,28 @@
+program ::= [[class]]+
+class ::= class TYPE [: TYPE] { [[classbody; ]]* }
+classbody ::= functiondec | variabledec 
+functiondec ::= function ID ( [variabledec [[, variabledec]]* ] ) ret TYPE { block* return exp ';'? }
+variabledec ::= ID of TYPE [ ‘<-‘ exp]
+var ::=  ID | prefixexp ‘[’ exp ‘]’ | prefixexp ‘.’ ID 
+exp ::=  nil | false | true  | LiteralString |  integer | string   |
+		 prefixexp | exp binop exp | unop exp | new TYPE args 
+prefixexp ::= var | functioncall | ( exp )
+functioncall ::=  ID args | prefixexp ‘.’ ID args 
+args ::=  ( [explist] ) | LiteralString 	
+explist ::= exp [‘,’ exp]
+varlist ::= var [‘,’ var]
+block ::= stat [‘;’] 
+stat ::=  ‘;’ | 
+	 varlist ‘=’ explist | 
+	 functioncall | 
+	 break | 
+	 while exp do block end | 
+	 if exp then block [[elseif exp then block]]* [else block] end | 
+	 for varlist in explist do block end | 
+	 local variabledec
+	
+binop ::=  ‘+’ | ‘-’ | ‘*’ | ‘/’ | ‘^’ |   
+	  ‘<- ‘ |  ‘<’  | ‘<=’ | ‘==’ |  
+	and | or
+
+unop ::=  not | ‘-‘ | ‘!’
