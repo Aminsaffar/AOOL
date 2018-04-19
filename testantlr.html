@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>testantlr.java</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<style type="text/css">
+<!--
+body {color: #a9b7c6; background-color: #2b2b2b; font-family: Monospaced}
+pre {color: #a9b7c6; background-color: #2b2b2b; font-family: Monospaced}
+table {color: #888888; background-color: #313335; font-family: Monospaced}
+.literal {color: #cc7832}
+.ST0 {color: #808080; font-family: Monospaced; font-weight: bold}
+.comment {color: #808080}
+.whitespace {color: #505050}
+.ST1 {color: #ffc66d; font-family: Monospaced; font-style: italic}
+.ST3 {color: #9876aa; font-family: Monospaced; font-style: italic}
+.string {color: #6a8759}
+.number {color: #6897bb}
+.ST2 {color: #9876aa}
+-->
+</style>
+</head>
+<body>
+<table width="100%"><tr><td align="center">E:\a f ce\M4\compiler\ph22\finalproject\antlertest\test\antlertest\testantlr.java</td></tr></table>
+<pre>
+ 1 <span class="comment">/*</span>
+ 2 <span class="comment"> * To change this license header, choose License Headers in Project Properties.</span>
+ 3 <span class="comment"> * To change this template file, choose Tools | Templates</span>
+ 4 <span class="comment"> * and open the template in the editor.</span>
+ 5 <span class="comment"> */</span>
+ 6 <span class="literal">package</span> antlertest;
+ 7 
+ 8 <span class="literal">import</span> AntlerGenerateFiles.aoolLexer;
+ 9 <span class="literal">import</span> AntlerGenerateFiles.aoolParser;
+10 <span class="comment">import</span> <span class="comment">java</span><span class="comment">.</span><span class="comment">io</span><span class="comment">.</span><span class="comment">BufferedOutputStream</span><span class="comment">;</span>
+11 <span class="literal">import</span> java.io.File;
+12 <span class="literal">import</span> java.io.FileInputStream;
+13 <span class="comment">import</span> <span class="comment">java</span><span class="comment">.</span><span class="comment">io</span><span class="comment">.</span><span class="comment">FileOutputStream</span><span class="comment">;</span>
+14 <span class="literal">import</span> java.io.IOException;
+15 <span class="comment">import</span> <span class="comment">java</span><span class="comment">.</span><span class="comment">io</span><span class="comment">.</span><span class="comment">PrintStream</span><span class="comment">;</span>
+16 <span class="comment">import</span> <span class="comment">java</span><span class="comment">.</span><span class="comment">util</span><span class="comment">.</span><span class="comment">BitSet</span><span class="comment">;</span>
+17 <span class="comment">import</span> <span class="comment">org</span><span class="comment">.</span><span class="comment">antlr</span><span class="comment">.</span><span class="comment">v4</span><span class="comment">.</span><span class="comment">runtime</span><span class="comment">.</span><span class="comment">ANTLRErrorListener</span><span class="comment">;</span>
+18 <span class="literal">import</span> org.antlr.v4.runtime.ANTLRInputStream;
+19 <span class="literal">import</span> org.antlr.v4.runtime.CommonTokenStream;
+20 <span class="comment">import</span> <span class="comment">org</span><span class="comment">.</span><span class="comment">antlr</span><span class="comment">.</span><span class="comment">v4</span><span class="comment">.</span><span class="comment">runtime</span><span class="comment">.</span><span class="comment">Parser</span><span class="comment">;</span>
+21 <span class="comment">import</span> <span class="comment">org</span><span class="comment">.</span><span class="comment">antlr</span><span class="comment">.</span><span class="comment">v4</span><span class="comment">.</span><span class="comment">runtime</span><span class="comment">.</span><span class="comment">RecognitionException</span><span class="comment">;</span>
+22 <span class="comment">import</span> <span class="comment">org</span><span class="comment">.</span><span class="comment">antlr</span><span class="comment">.</span><span class="comment">v4</span><span class="comment">.</span><span class="comment">runtime</span><span class="comment">.</span><span class="comment">Recognizer</span><span class="comment">;</span>
+23 <span class="comment">import</span> <span class="comment">org</span><span class="comment">.</span><span class="comment">antlr</span><span class="comment">.</span><span class="comment">v4</span><span class="comment">.</span><span class="comment">runtime</span><span class="comment">.</span><span class="comment">atn</span><span class="comment">.</span><span class="comment">ATNConfigSet</span><span class="comment">;</span>
+24 <span class="comment">import</span> <span class="comment">org</span><span class="comment">.</span><span class="comment">antlr</span><span class="comment">.</span><span class="comment">v4</span><span class="comment">.</span><span class="comment">runtime</span><span class="comment">.</span><span class="comment">dfa</span><span class="comment">.</span><span class="comment">DFA</span><span class="comment">;</span>
+25 <span class="literal">import</span> org.antlr.v4.runtime.tree.ParseTree;
+26 <span class="literal">import</span> org.antlr.v4.runtime.tree.ParseTreeWalker;
+27 
+28 <span class="comment">/**</span>
+29 <span class="comment"> *</span>
+30 <span class="comment"> * </span><span class="ST0">@author</span> <span class="comment">Amin_Akhavan_Saffar</span> <span class="comment">AkhavanSaffar</span><span class="comment">@</span><span class="comment">hotmail</span><span class="comment">.</span><span class="comment">com</span>
+31  <span class="comment">*/</span>
+32 <span class="literal">public</span> <span class="literal">class</span> testantlr {
+33 
+34     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST1">main</span>(String args[]) <span class="literal">throws</span> IOException {
+35         String pathname = <span class="string">&quot;&quot;</span>;
+36         <span class="literal">if</span> (<span class="number">0</span> &lt; args.<span class="ST2">length</span>) {
+37             pathname = args[<span class="number">0</span>];
+38         } <span class="literal">else</span> {
+39             System.<span class="ST3">out</span>.println(<span class="string">&quot;</span><span class="string">please enter pathname adderss</span><span class="string">&quot;</span>);
+40         }
+41 
+42         <span class="literal">boolean</span> <span class="comment">fileHaveError</span> = <span class="literal">false</span>;
+43         <span class="comment">//System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream(&quot;output.txt&quot;))));</span>
+44         File path = <span class="literal">new</span> File(pathname);
+45 
+46         File[] files = path.listFiles();
+47         <span class="literal">for</span> (<span class="literal">int</span> i = <span class="number">0</span>; i &lt; files.<span class="ST2">length</span>; i++) {
+48             <span class="literal">if</span> (files[i].isFile()) { <span class="comment">//this line weeds out other directories/folders</span>
+49                 System.<span class="ST3">out</span>.println(files[i].getName());
+50 <span class="comment">//                 files[i].renameTo( new File(files[i].getAbsolutePath().replace(&#39;)&#39;, &#39; &#39;)));</span>
+51 
+52                 <span class="comment">// create a CharStream that reads from standard input</span>
+53                 ANTLRInputStream input = <span class="literal">new</span> ANTLRInputStream(<span class="literal">new</span> FileInputStream(files[i]));
+54                 <span class="comment">// create a lexer that feeds off of input CharStream</span>
+55                 aoolLexer lexer = <span class="literal">new</span> aoolLexer(input);
+56                 <span class="comment">// create a buffer of tokens pulled from the lexer</span>
+57                 CommonTokenStream tokens = <span class="literal">new</span> CommonTokenStream(lexer);
+58                 <span class="comment">// create a parser that feeds off the tokens buffer</span>
+59                 aoolParser parser = <span class="literal">new</span> aoolParser(tokens);
+60                 ParseTree tree = parser.program(); <span class="comment">// begin parsing at init rule</span>
+61                 <span class="comment">// Create a generic parse tree walker that can trigger callbacks</span>
+62 
+63                 <span class="comment">//parser.addErrorListener(new ANTLRErrorListenerImpl(parser));</span>
+64                 ParseTreeWalker walker = <span class="literal">new</span> ParseTreeWalker();
+65 
+66                 <span class="literal">if</span> (parser.getNumberOfSyntaxErrors() &gt; <span class="number">0</span>) {
+67                     files[i].renameTo(<span class="literal">new</span> File(files[i].getAbsolutePath() + <span class="string">&quot;</span><span class="string">error</span><span class="string">&quot;</span>));
+68                 }
+69                 <span class="comment">// Walk the tree created during the parse, trigger callbacks</span>
+70 
+71                 walker.walk(<span class="literal">new</span> MyListener(), tree);
+72 
+73                 System.<span class="ST3">out</span>.println(); <span class="comment">// print a \n after translation</span>
+74             }
+75             <span class="comment">// System.out.println(&quot;  &quot; + MyListener.number_of_toutal_function);</span>
+76         }
+77     }
+78 
+79 
+80 }
+81 
+</pre></body>
+</html>
